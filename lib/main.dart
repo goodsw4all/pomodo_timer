@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'model/pomodoro_setting.dart';
 import 'screens/home_screen.dart';
 import 'theme/theme.dart';
 import 'model/pormodoro_provider.dart';
 
 void main() {
   var widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  initSchedule();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(
@@ -46,4 +48,10 @@ class _PomodoroAppState extends State<PomodoroApp> {
       },
     );
   }
+}
+
+Future<void> initSchedule() async {
+  print("Pomodeo Shared Debugging");
+  // PomodoroSetting.initPomodoroScheduleSetting();
+  PomodoroSetting.loadSharedPref();
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/model/time_space.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:pomodoro/db/pomodoro_db.dart';
+import 'package:pomodoro/model/pomodoro_model.dart';
 
-import '../model/pormodoro_provider.dart';
 import 'pomodoro_page.dart';
 import 'info_page.dart';
 import 'setting_page.dart';
@@ -23,15 +21,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    initSchedule();
     pages.add(const PomodoroTimerPage());
     pages.add(SettingPage());
     pages.add(PomodoroInfo());
-
-    initSchedule();
   }
 
   Future<void> initSchedule() async {
-    // await PomodoroData.loadSharedPref();
+    print("DB Debugging");
+    // (await PomodoroDB.instance.insert(PomodoroTask(date: "20200901")));
+    var list_tasks = (await PomodoroDB.instance.getAllData());
+    for (var item in list_tasks) {
+      print("${item?.id}, ${item?.date}");
+      print("${item?.toJson()}");
+    }
   }
 
   @override

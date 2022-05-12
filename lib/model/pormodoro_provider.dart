@@ -1,53 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/db/pomodoro_db.dart';
 
-import 'time_space.dart';
+import 'pomodoro_setting.dart';
 
-class PomodoroTask {
+class PomodoroCompleteTask {
   final String name;
   final String category;
   bool isDone = false;
 
-  PomodoroTask(
+  PomodoroCompleteTask(
       {required this.name, this.category = "General", this.isDone = false});
 }
 
 class PomodoroProvider with ChangeNotifier {
-  List<PomodoroTask> _tasks = [];
+  List<PomodoroCompleteTask> _tasks = [];
 
   PomodoroProvider() {
     print("PomodoroProvider()");
 
     initSchedule();
   }
+
   Future<void> initSchedule() async {
-    await PomodoroData.loadSharedPref();
-    print("PomodoroProvider ${PomodoroData.schedule}");
-    print("PomodoroProvider ${PomodoroData.tasks_record}");
-    int temp = int.parse(PomodoroData.tasks_record["DATE"]![1]);
-    print("PomodoroProvider() $temp");
-    if (temp == 0)
-      tasks.clear();
-    else {
-      for (var i = 0; i < temp; i++) {
-        _tasks.add(PomodoroTask(name: "Good Job", isDone: true));
-      }
-    }
+    // await PomodoroSetting.loadSharedPref();
+
+    // print("PomodoroProvider() $temp");
+    // if (temp == 0)
+    //   tasks.clear();
+    // else {
+    //   for (var i = 0; i < temp; i++) {
+    //     _tasks.add(PomodoroCompleteTask(name: "Good Job", isDone: true));
+    //   }
+    // }
   }
 
-  List<PomodoroTask> get tasks {
+  List<PomodoroCompleteTask> get tasks {
     return _tasks;
   }
 
-  void addTaskComplete(PomodoroTask task) {
+  void addTaskComplete(PomodoroCompleteTask task) {
     _tasks.add(task);
     print(_tasks.length);
-    PomodoroData.increasePomodoroTaskData();
+    // PomodoroSetting.increasePomodoroTaskData();
+    // TODO: SQL Insert or Update
+
     notifyListeners();
   }
 
   void clearTasks() {
     _tasks.clear();
-    PomodoroData.resetTaskData();
+    // PomodoroSetting.resetTaskData();
     notifyListeners();
   }
 }

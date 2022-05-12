@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
+import '../../model/pomodoro_setting.dart';
 import '../../model/pormodoro_provider.dart';
 import 'timer_control_button_widget.dart';
 
@@ -33,7 +34,7 @@ class _PomodoroWidgetState extends State<PomodoroWidget> {
 
   @override
   void initState() {
-    var default_time = 3;
+    var default_time = 0;
     super.initState();
 
     player = AudioPlayer();
@@ -49,9 +50,10 @@ class _PomodoroWidgetState extends State<PomodoroWidget> {
         Future.delayed(const Duration(milliseconds: 2000), () {
           playSoundEffect('Reset');
           _stopWatchTimer.onExecute.add(StopWatchExecute.reset);
+
           context
               .read<PomodoroProvider>()
-              .addTaskComplete(PomodoroTask(name: "Good Job"));
+              .addTaskComplete(PomodoroCompleteTask(name: "Good Job"));
         });
       },
     );
@@ -80,6 +82,10 @@ class _PomodoroWidgetState extends State<PomodoroWidget> {
   @override
   Widget build(BuildContext context) {
     double imageWidth = 0;
+    _stopWatchTimer.clearPresetTime();
+    print(_stopWatchTimer);
+    _stopWatchTimer
+        .setPresetMinuteTime(PomodoroSetting.getScheduleValue("WORK"));
     return Stack(
       alignment: Alignment.topCenter,
       children: [

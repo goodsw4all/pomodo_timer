@@ -52,7 +52,7 @@ class _PomodoroTimerPageState extends State<PomodoroTimerPage>
     // context.read<PomodoroProvider>().initPomodoroProvider();
 
     var width = MediaQuery.of(context).size.width;
-    print('$runtimeType : $width');
+    // print('$runtimeType : $width');
 
     return Container(
       decoration: const BoxDecoration(
