@@ -10,5 +10,6 @@ Work in progress
 - Graph view for records
 
 ## Screenshot
-![image](screenshot/Screenshot_1652332578.png)
+<img src="screenshot/Screenshot_1652332578.png" width="450">
+
 
