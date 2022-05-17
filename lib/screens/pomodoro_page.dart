@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,9 @@ class PomodoroTimerPage extends StatefulWidget {
 class _PomodoroTimerPageState extends State<PomodoroTimerPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
+  // var today_string = DateFormat('yyyy-MM-dd').format(DateTime.now() );
+  var today_string =
+      DateFormat('yyyy-MM-dd').format(DateTime.parse("2022-05-05"));
 
   @override
   void initState() {
@@ -33,6 +38,18 @@ class _PomodoroTimerPageState extends State<PomodoroTimerPage>
         // print(controller.value);
       });
     });
+
+    final periodicTimer = Timer.periodic(
+      const Duration(minutes: 1),
+      (timer) {
+        if (today_string != getToday()) {
+          print("change Date");
+          setState(() {
+            today_string = getToday();
+          });
+        }
+      },
+    );
   }
 
   String getToday() {
@@ -52,7 +69,7 @@ class _PomodoroTimerPageState extends State<PomodoroTimerPage>
     // context.read<PomodoroProvider>().initPomodoroProvider();
 
     var width = MediaQuery.of(context).size.width;
-    // print('$runtimeType : $width');
+    print('$runtimeType : $width');
 
     return Container(
       decoration: const BoxDecoration(
@@ -73,7 +90,7 @@ class _PomodoroTimerPageState extends State<PomodoroTimerPage>
               height: 10,
             ),
             Text(
-              getToday(),
+              today_string,
               style: const TextStyle(
                   fontSize: 33,
                   fontFamily: 'Helvetica',

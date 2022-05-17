@@ -75,8 +75,8 @@ class _PomodoroWidgetState extends State<PomodoroWidget> {
       print(box.size);
       return box.size.height;
     }
-    print('Default jjjjjjjjjjj');
-    return 330;
+
+    return 0;
   }
 
   @override
